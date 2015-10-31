@@ -32,6 +32,7 @@
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 # Variables ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TMUX_VERSION_MAJOR="`tmux -V | cut -d '.' -f 1 | sed 's|[^0-9]||g'`"
 TMUX_VERSION_MINOR="`tmux -V | cut -d '.' -f 2 | sed 's|[^0-9]||g'`"
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -89,11 +90,13 @@ set -g repeat-time 256
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # Mouse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-set -g mode-mouse          on
-set -g mouse-utf8          on
-set -g mouse-resize-pane   on
-set -g mouse-select-pane   on
-set -g mouse-select-window on
+set -g mouse-utf8 on
+
+if-shell "[[ $TMUX_VERSION -ge 21 ]]" 'set -g mouse on'
+if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-resize-pane on'
+if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-select-pane on'
+if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-window-pane on'
+if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mode-mouse on'
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # Hotkeys (general) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
