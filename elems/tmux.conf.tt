@@ -48,14 +48,6 @@ set -g history-limit 10240
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # Windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Aggressively resize the chosen window.  This means that tmux will resize the
-# window to the size of the smallest session for which it is the current window,
-# rather than the smallest session to which it is attached. The window may
-# resize when the current window is changed on another sessions; this option is
-# good for full-screen programs which support SIGWINCH and poor for interactive
-# programs such as shells.
-setw -g aggressive-resize on
-
 # Start indexes from 1 instead of 0, for typing accessibility.
 set -g base-index      1
 set -g pane-base-index 1
