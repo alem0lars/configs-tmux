@@ -1,0 +1,8 @@
+elems:
+  - src:  'elems/(tmux.conf)$'
+    dst:  '~/.<1>'
+    only:
+      features: ['tmux']
+    notes: |
+      The program 'xclip' should be installed in order to provide clipboard
+      support to tmux.
