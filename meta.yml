@@ -4,6 +4,4 @@ elems:
     only:
       features:
         - tmux
-    notes: |
-      The program 'xclip' should be installed in order to provide clipboard
-      support to tmux.
+    notes: Clipboard support needs the program 'xclip'
