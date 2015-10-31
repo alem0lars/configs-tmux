@@ -1,60 +1,51 @@
-# {{{ File header. #############################################################
-#                                                                              #
-# File informations:                                                           #
-# - Name:    tmux/tmux.conf.tt                                                 #
-# - Summary: The tmux configuration.                                           #
-# - Authors:                                                                   #
-#   - Alessandro Molari <molari.alessandro@gmail.com> (alem0lars)              #
-#                                                                              #
-# Project informations:                                                        #
-# - Homepage:        https://github.com/alem0lars/configs                      #
-# - Getting started: see README.md in the project root folder                  #
-#                                                                              #
-# License: Apache v2.0 (see below)                                             #
-#                                                                              #
-################################################################################
-#                                                                              #
-# Licensed to the Apache Software Foundation (ASF) under one more contributor  #
-# license agreements.  See the NOTICE file distributed with this work for      #
-# additional information regarding copyright ownership. The ASF licenses this  #
-# file to you under the Apache License, Version 2.0 (the "License"); you may   #
-# not use this file except in compliance with the License.                     #
-# You may obtain a copy of the License at                                      #
-#                                                                              #
-#   http://www.apache.org/licenses/LICENSE-2.0                                 #
-#                                                                              #
-# Unless required by applicable law or agreed to in writing, software          #
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT    #
-# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.             #
-# See the License for the specific language governing permissions and          #
-# limitations under the License.                                               #
-#                                                                              #
-# }}} ##########################################################################
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#                                                                              ┃
+# File informations:                                                           ┃
+# - Name:    elems/tmux.conf.tt                                                ┃
+# - Summary: The tmux configuration.                                           ┃
+# - Authors:                                                                   ┃
+#   - Alessandro Molari <molari.alessandro@gmail.com> (alem0lars)              ┃
+#                                                                              ┃
+# Project informations:                                                        ┃
+# - Homepage:        https://github.com/alem0lars/configs-tmux                 ┃
+# - Getting started: see README.md in the project root folder                  ┃
+#                                                                              ┃
+# License: Apache v2.0 (see below)                                             ┃
+#                                                                              ┃
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
+#                                                                              ┃
+# Licensed to the Apache Software Foundation (ASF) under one more contributor  ┃
+# license agreements.  See the NOTICE file distributed with this work for      ┃
+# additional information regarding copyright ownership. The ASF licenses this  ┃
+# file to you under the Apache License, Version 2.0 (the "License"); you may   ┃
+# not use this file except in compliance with the License.                     ┃
+# You may obtain a copy of the License at                                      ┃
+#                                                                              ┃
+#   http://www.apache.org/licenses/LICENSE-2.0                                 ┃
+#                                                                              ┃
+# Unless required by applicable law or agreed to in writing, software          ┃
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT    ┃
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.             ┃
+# See the License for the specific language governing permissions and          ┃
+# limitations under the License.                                               ┃
+#                                                                              ┃
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-
-# {{{ Variables.
-
+# Variables ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TMUX_VERSION_MINOR="`tmux -V | cut -d '.' -f 2 | sed 's|[^0-9]||g'`"
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Charset.
-
-# Unicode support.
+# Charset ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 setw -g utf8        on
 set  -g status-utf8 on
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ History.
-
+# History ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Set maximum history size.
 set -g history-limit 10240
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Windows.
-
+# Windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Aggressively resize the chosen window.  This means that tmux will resize the
 # window to the size of the smallest session for which it is the current window,
 # rather than the smallest session to which it is attached. The window may
@@ -69,11 +60,9 @@ set -g pane-base-index 1
 
 # Directly expose pane titles.
 set -g set-titles on
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Activity.
-
+# Activity ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Monitor for activity in the window.
 # Windows with activity are highlighted in the status line.
 setw -g monitor-activity on
@@ -82,18 +71,14 @@ set  -g visual-activity  on
 # Urgency hints.
 set -g bell-action   any
 set -g bell-on-alert on
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Terminal.
-
+# Terminal ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Set terminal type.
 set -g default-terminal "screen-256color"
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Keyboard.
-
+# Keyboard ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Set the time in milliseconds for which tmux waits after an escape is input to
 # determine if it is part of a function or meta key sequences.
 set -sg escape-time 256
@@ -101,32 +86,27 @@ set -sg escape-time 256
 # Allow multiple commands to be entered without pressing the prefix-key again in
 # the specified time milliseconds.
 set -g repeat-time 256
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Mouse.
-
+# Mouse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 set -g mode-mouse          on
 set -g mouse-utf8          on
 set -g mouse-resize-pane   on
 set -g mouse-select-pane   on
 set -g mouse-select-window on
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Configure hotkeys.
-
+# Hotkeys (general) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Generate xterm-style function key sequences; these have a number included to
+# indicate modifiers such as Shift, Alt or Ctrl. The default is off.
 setw -g xterm-keys  on
 
-# {{{ Vi-mode.
-
+# Enable vi-mode.
 set -wg mode-keys   vi
 set -g  status-keys vi
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Prefix.
-
+# Hotkeys (prefix) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Change prefix from <C-b> to <C-a>.
 set -g prefix C-a
 unbind-key C-b
@@ -134,39 +114,29 @@ unbind-key C-b
 # Nested prefix.
 bind C-a send-prefix
 bind a   send-prefix
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ History.
-
-bind -n C-k clear-history
-
-# }}}
-
-# {{{ Reload.
-
+# Hotkeys (reload) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # <Prefix><S-r>: force a reload of the config file.
-bind r source <%= get_var!('tmux.config_file_path') %>\; display "Tmux configuration reloaded."
+bind r source ~/.tmux.conf\; display "Tmux config reloaded."
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
+# Hotkeys (history) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+bind -n C-k clear-history
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# {{{ Copy & Paste.
-
+# Hotkeys (copy&paste) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # [Normal mode]y or <Enter>: Copy the selected text.
 bind -t vi-copy 'y' copy-pipe "xclip -i -selection clipboard"
 bind -t vi-copy 'enter' copy-pipe "xclip -i -selection clipboard"
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Layouts.
-
+# Hotkeys (layout) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # <Prefix><Space>: next layout.
 bind 'space' next-layout
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Windows.
-
+# Hotkeys (windows) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # <Prefix>c: Create a new window.
 if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
   'bind c new-window -c "#{pane_current_path}"' \
@@ -185,11 +155,9 @@ if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
 bind M-w confirm kill-window
 # <Prefix><Alt>W: Kill the window (without asking confirmation).
 bind M-W kill-window
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Sessions.
-
+# Hotkeys (sessions) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # <Prefix>C: Create a new session.
 bind C command-prompt -p "new session:" "new-session -A -s %%"
 
@@ -200,11 +168,9 @@ bind d detach
 bind M-s confirm kill-session
 # <Prefix><Alt>S: Kill the session (without asking confirmation).
 bind M-S kill-session
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Panes.
-
+# Hotkeys (panes) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 bind J swap-pane -D
 bind K swap-pane -U
 bind H swap-pane -U
@@ -246,16 +212,9 @@ bind Up select-pane -U
 bind Down select-pane -D
 bind Left select-pane -L
 bind Right select-pane -R
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# }}}
-
-# {{{ Colors.
-
-set -g status 'on'
-set -g status-utf8 'on'
-
+# Colors ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 set -g status-bg 'colour233'
 set -g status-justify 'left'
 set -g status-left-length '100'
@@ -280,16 +239,15 @@ set -g message-bg 'colour236'
 set -g message-command-fg 'colour145'
 set -g message-fg 'colour145'
 set -g message-command-bg 'colour236'
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-# }}}
-
-# {{{ Status.
+# Status ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+set -g status on
 
 set -g status-left '#[fg=colour195,bg=colour25,bold] #S #[fg=colour25,bg=colour233,nobold,nounderscore,noitalics]'
 set -g status-right '#[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]#[fg=colour240,bg=colour233] #(tmux-mem-cpu-load 2) '
 setw -g window-status-format '#[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]#[default] #I:#W #[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]'
 setw -g window-status-current-format '#[fg=colour233,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour145,bg=colour236] #I:#W #[fg=colour236,bg=colour233,nobold,nounderscore,noitalics]'
-
-# }}}
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # vim: set filetype=tmux :
