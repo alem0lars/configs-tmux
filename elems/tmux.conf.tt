@@ -60,6 +60,12 @@ setw -g aggressive-resize on
 set -g base-index      1
 set -g pane-base-index 1
 
+# Automatic window numbers reordering.
+if-shell "[[ $TMUX_VERSION -ge 17 ]]" 'set-option -g renumber-windows on'
+# <Prefix><C-s>: Sort windows.
+bind-key C-s run \
+  "for i in $(tmux lsw|awk -F: '{print $1}'); do tmux movew -s \$i' done"
+
 # Directly expose pane titles.
 set -g set-titles on
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
