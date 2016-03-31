@@ -1,2 +1,2 @@
 tmux:
-  copy_cmd: "pbcopy"
+  copy_cmd: pbcopy
