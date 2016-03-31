@@ -1,0 +1,2 @@
+tmux:
+  copy_cmd: "xclip -i -selection clipboard"
