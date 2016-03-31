@@ -31,7 +31,7 @@
 #                                                                              │
 # ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
-  variable "tmux.copy_cmd", type: :string?, default: nil
+  variable :"tmux.copy_cmd", type: :string?, default: nil, as: :copy_cmd
 end -%>
 # ─────────────────────────────────────────────────────────────────────────────┘
 
@@ -42,8 +42,8 @@ TMUX_VERSION_MAJOR="`tmux -V | cut -d '.' -f 1 | sed 's|[^0-9]||g'`"
 TMUX_VERSION_MINOR="`tmux -V | cut -d '.' -f 2 | sed 's|[^0-9]||g'`"
 TMUX_VERSION=${TMUX_VERSION_MAJOR}${TMUX_VERSION_MINOR}
 
-<% local?("tmux.copy_cmd") do |copy_cmd| %>
-TMUX_COPY_CMD="<%= copy_cmd %>"
+<% if local? :copy_cmd %>
+TMUX_COPY_CMD="<%= local! :copy_cmd %>"
 <% end -%>
 
 # ├────────────────────────────────────────────────────────────────────────────┤

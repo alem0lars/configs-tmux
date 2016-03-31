@@ -1,7 +1,11 @@
 elems:
+
   - src: elems/(tmux.conf)$
     dst: ~/.<1>
     only:
       features:
         - tmux
-    notes: Clipboard support needs the program 'xclip'
+    notes: |
+      Clipboard support needs the program 'xclip'
+
+# vim: set filetype=eruby.yaml :
