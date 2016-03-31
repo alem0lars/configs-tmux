@@ -127,7 +127,6 @@ if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mode-mouse on'
 # ├────────────────────────────────────────────────────────────────────────────┤
 # ├→ Hotkeys (general) ────────────────────────────────────────────────────────┤
 
-# Hotkeys (general) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Generate xterm-style function key sequences; these have a number included to
 # indicate modifiers such as Shift, Alt or Ctrl. The default is off.
 setw -g xterm-keys  on
