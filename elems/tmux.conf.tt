@@ -107,11 +107,11 @@ set -g default-terminal "screen-256color"
 
 # Set the time in milliseconds for which tmux waits after an escape is input to
 # determine if it is part of a function or meta key sequences.
-set -sg escape-time 256
+set -g escape-time 16
 
 # Allow multiple commands to be entered without pressing the prefix-key again in
 # the specified time milliseconds.
-set -g repeat-time 256
+set -g repeat-time 128
 
 # ├────────────────────────────────────────────────────────────────────────────┤
 # ├→ Mouse ────────────────────────────────────────────────────────────────────┤
