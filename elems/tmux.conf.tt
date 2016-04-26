@@ -217,10 +217,10 @@ bind K swap-pane -U
 bind H swap-pane -U
 bind L swap-pane -D
 
-bind C-j resize-pane -D 10
-bind C-k resize-pane -U 10
-bind C-h resize-pane -L 10
-bind C-l resize-pane -R 10
+bind C-j resize-pane -D 4
+bind C-k resize-pane -U 4
+bind C-h resize-pane -L 6
+bind C-l resize-pane -R 6
 
 # s: Split window horizontally creating a new lower pane.
 if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
