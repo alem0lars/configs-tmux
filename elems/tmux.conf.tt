@@ -162,9 +162,9 @@ bind -n C-k clear-history
 
 # [Normal mode]y or <Enter>: Copy the selected text.
 if-shell "[[ ! -z $TMUX_COPY_CMD ]]" \
-  "bind -t vi-copy y copy-pipe $TMUX_COPY_CMD"
+  "bind -t vi-copy y copy-pipe '$TMUX_COPY_CMD'"
 if-shell "[[ ! -z $TMUX_COPY_CMD ]]" \
-  "bind -t vi-copy enter copy-pipe $TMUX_COPY_CMD"
+  "bind -t vi-copy enter copy-pipe '$TMUX_COPY_CMD'"
 
 # ├────────────────────────────────────────────────────────────────────────────┤
 # ├→ Hotkeys (layout) ─────────────────────────────────────────────────────────┤
