@@ -8,4 +8,11 @@ elems:
     notes: |
       Clipboard support needs the program 'xclip'
 
+  - src: elems/tmuxp/(.+)$
+    dst: ~/.tmuxp/<1>
+    only:
+      features:
+        - tmuxp
+
+
 # vim: set filetype=eruby.yaml :
