@@ -5,7 +5,7 @@ windows:
     focus: True
     layout: main-horizontal
     options:
-      main-pane-height: 35
+      main-pane-height: 48
     panes:
     - htop                               # process manager
     - dstat -clpy --ipc                  # cpu stats
@@ -19,7 +19,11 @@ windows:
   - window_name: net
     layout: tiled
     panes:
+    - watch -c -n1 ip addr              # net ifaces info
     - dstat -n                          # traffic stats
     - sudo nethogs                      # traffic info
     - dstat --socket --tcp --udp --unix # sockets stats
     - watch -c -n1 netstat -lnut        # sockets status
+
+
+# vim: set filetype=eruby.yaml :
