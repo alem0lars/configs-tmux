@@ -1,18 +1,13 @@
 elems:
 
-  - src: elems/(tmux.conf)$
-    dst: ~/.<1>
-    only:
-      features:
-        - tmux
-    notes: |
-      Clipboard support needs the program 'xclip'
+  - src:   ^(tmux.conf)$
+    dst:   ~/.<1>
+    only:  f?tmux
+    notes: Program xclip is needed for clipboard support
 
-  - src: elems/tmuxp/(.+)$
-    dst: ~/.tmuxp/<1>
-    only:
-      features:
-        - tmuxp
+  - src:  ^(tmuxinator/.+)$
+    dst:  ~/.<1>
+    only: f?tmux && f?tmuxinator
 
 
 # vim: set filetype=eruby.yaml :
