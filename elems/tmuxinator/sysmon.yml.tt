@@ -19,16 +19,14 @@ socket_name: sysmon
 # tmux_command: byobu
 
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-# startup_window: editor
+startup_window: system
 
 # Specitifes (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
-# startup_pane: 1
+startup_pane: 1
 
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
-# attach: false
+attach: true
 
-# Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t sysmon
 
 windows:
   - system:
@@ -39,6 +37,10 @@ windows:
         - dstat -msg --vm                    # memory stats
         - dstat -d --io --fs --lock --aio -i # i/o stats
         - watch -c -n1 pydf                  # disk usage
+  - power:
+      layout: main-horizontal
+      panes:
+        - sudo powertop
   - log:
       layout: tiled
       panes:
