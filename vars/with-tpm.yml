@@ -1,0 +1,8 @@
+tpm:
+  dir: ~/.tmux/plugins/tpm
+
+features:
+  - tpm
+
+
+# vim: set filetype=eruby.yaml :

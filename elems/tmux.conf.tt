@@ -31,13 +31,19 @@
 #                                                                              │
 # ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
+  variable :"tpm.dir", as: :tpm_dir
   variable :"tmux.copy_cmd", type: :string?, default: nil, as: :copy_cmd
 end -%>
 # ─────────────────────────────────────────────────────────────────────────────┘
 
-# ┌────────────────────────────────────────────────────────────────────────────┐
-# ├→ Variables ────────────────────────────────────────────────────────────────┤
 
+# ──────────────────────────────────────────────────────── Plugins (declare) ──┐
+<% if has_feature? :tpm %>
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'NHDaly/tmux-better-mouse-mode'
+<% end %>
+# ──────────────────────────────────────────────────────────────── Variables ──┤
 TMUX_VERSION_MAJOR="`tmux -V | cut -d '.' -f 1 | sed 's|[^0-9]||g'`"
 TMUX_VERSION_MINOR="`tmux -V | cut -d '.' -f 2 | sed 's|[^0-9]||g'`"
 TMUX_VERSION=${TMUX_VERSION_MAJOR}${TMUX_VERSION_MINOR}
@@ -45,30 +51,7 @@ TMUX_VERSION=${TMUX_VERSION_MAJOR}${TMUX_VERSION_MINOR}
 <% if local? :copy_cmd %>
 TMUX_COPY_CMD="<%= local! :copy_cmd %>"
 <% end -%>
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Charset ──────────────────────────────────────────────────────────────────┤
-
-setw -g utf8        on
-set  -g status-utf8 on
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ History ──────────────────────────────────────────────────────────────────┤
-
-# Set maximum history size.
-set -g history-limit 10240
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Windows ──────────────────────────────────────────────────────────────────┤
-
-# Aggressively resize the chosen window.  This means that tmux will resize the
-# window to the size of the smallest session for which it is the current window,
-# rather than the smallest session to which it is attached. The window may
-# resize when the current window is changed on another sessions; this option is
-# good for full-screen programs which support SIGWINCH and poor for interactive
-# programs such as shells.
-setw -g aggressive-resize on
-
+# ────────────────────────────────────────────────────────────────── Windows ──┤
 # Start indexes from 1 instead of 0, for typing accessibility.
 set -g base-index      1
 set -g pane-base-index 1
@@ -82,10 +65,7 @@ bind-key C-s run \
 
 # Directly expose pane titles.
 set -g set-titles on
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Activity ─────────────────────────────────────────────────────────────────┤
-
+# ───────────────────────────────────────────────────────────────── Activity ──┤
 # Monitor for activity in the window.
 setw -g monitor-activity on
 
@@ -95,16 +75,7 @@ set  -g visual-activity  on
 # Urgency hints.
 set -g bell-action   any
 set -g bell-on-alert on
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Terminal ─────────────────────────────────────────────────────────────────┤
-
-# Set terminal type.
-set -g default-terminal "screen-256color"
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Keyboard ─────────────────────────────────────────────────────────────────┤
-
+# ───────────────────────────────────────────────────────────────── Keyboard ──┤
 # Set the time in milliseconds for which tmux waits after an escape is input to
 # determine if it is part of a function or meta key sequences.
 set -g escape-time 16
@@ -112,10 +83,7 @@ set -g escape-time 16
 # Allow multiple commands to be entered without pressing the prefix-key again in
 # the specified time milliseconds.
 set -g repeat-time 128
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Mouse ────────────────────────────────────────────────────────────────────┤
-
+# ──────────────────────────────────────────────────────────────────── Mouse ──┤
 set -g mouse-utf8 on
 
 if-shell "[[ $TMUX_VERSION -ge 21 ]]" 'set -g mouse on'
@@ -123,56 +91,32 @@ if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-resize-pane on'
 if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-select-pane on'
 if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-window-pane on'
 if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mode-mouse on'
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Hotkeys (general) ────────────────────────────────────────────────────────┤
-
+# ──────────────────────────────────────────────────────── Hotkeys (general) ──┤
 # Generate xterm-style function key sequences; these have a number included to
 # indicate modifiers such as Shift, Alt or Ctrl. The default is off.
 setw -g xterm-keys  on
 
 # Enable vi-mode.
 set -wg mode-keys   vi
-set -g  status-keys vi
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Hotkeys (prefix) ─────────────────────────────────────────────────────────┤
-
+# ───────────────────────────────────────────────────────── Hotkeys (prefix) ──┤
 # Change prefix from <C-b> to <C-a>.
 set -g prefix C-a
-unbind-key C-b
 
-# Nested prefix.
-bind C-a send-prefix
-bind a   send-prefix
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Hotkeys (reload) ─────────────────────────────────────────────────────────┤
-
+# <C-a>b : Nested prefix.
+bind b send-prefix
+# ───────────────────────────────────────────────────────── Hotkeys (reload) ──┤
 # <Prefix><S-r>: force a reload of the config file.
 bind r source ~/.tmux.conf\; display "Tmux config reloaded."
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Hotkeys (history) ────────────────────────────────────────────────────────┤
-
+# ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
 bind -n C-k clear-history
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Hotkeys (copy & paste) ───────────────────────────────────────────────────┤
-
+# ─────────────────────────────────────────────────── Hotkeys (copy & paste) ──┤
 # [Normal mode]y or <Enter>: Copy the selected text.
 bind -t vi-copy y     copy-pipe $TMUX_COPY_CMD
 bind -t vi-copy enter copy-pipe $TMUX_COPY_CMD
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Hotkeys (layout) ─────────────────────────────────────────────────────────┤
-
+# ───────────────────────────────────────────────────────── Hotkeys (layout) ──┤
 # <Prefix><Space>: next layout.
 bind 'space' next-layout
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Hotkeys (windows) ────────────────────────────────────────────────────────┤
-
+# ──────────────────────────────────────────────────────── Hotkeys (windows) ──┤
 # <Prefix>c: Create a new window.
 if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
   'bind c new-window -c "#{pane_current_path}"' \
@@ -192,10 +136,7 @@ bind M-w confirm kill-window
 
 # <Prefix><Alt>W: Kill the window (without asking confirmation).
 bind M-W kill-window
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Hotkeys (sessions) ───────────────────────────────────────────────────────┤
-
+# ─────────────────────────────────────────────────────── Hotkeys (sessions) ──┤
 # <Prefix>C: Create a new session.
 bind C command-prompt -p "new session:" "new-session -A -s %%"
 
@@ -206,10 +147,7 @@ bind d detach
 bind M-s confirm kill-session
 # <Prefix><Alt>S: Kill the session (without asking confirmation).
 bind M-S kill-session
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Hotkeys (panes) ──────────────────────────────────────────────────────────┤
-
+# ────────────────────────────────────────────────────────── Hotkeys (panes) ──┤
 bind J swap-pane -D
 bind K swap-pane -U
 bind H swap-pane -U
@@ -251,10 +189,7 @@ bind Up    select-pane -U
 bind Down  select-pane -D
 bind Left  select-pane -L
 bind Right select-pane -R
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Colors ───────────────────────────────────────────────────────────────────┤
-
+# ─────────────────────────────────────────────────────────────────── Colors ──┤
 set -g status-bg 'colour233'
 set -g status-justify 'left'
 set -g status-left-length '100'
@@ -279,17 +214,24 @@ set -g message-bg 'colour236'
 set -g message-command-fg 'colour145'
 set -g message-fg 'colour145'
 set -g message-command-bg 'colour236'
-
-# ├────────────────────────────────────────────────────────────────────────────┤
-# ├→ Status ───────────────────────────────────────────────────────────────────┤
-
+# ─────────────────────────────────────────────────────────────────── Status ──┤
 set -g status on
 
 set -g status-left '#[fg=colour195,bg=colour25,bold] #S #[fg=colour25,bg=colour233,nobold,nounderscore,noitalics]'
 set -g status-right '#[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]#[fg=colour240,bg=colour233] #(tmux-mem-cpu-load 2) '
 setw -g window-status-format '#[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]#[default] #I:#W #[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]'
 setw -g window-status-current-format '#[fg=colour233,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour145,bg=colour236] #I:#W #[fg=colour236,bg=colour233,nobold,nounderscore,noitalics]'
-
+# ───────────────────────────────────────── Tmux Better Mouse Mode ← Plugins ──┤
+# TODO check if working
+set -g scroll-down-exit-copy-mode off
+set -g scroll-without-changing-pane on
+set -g scroll-in-moused-over-pane on
+set -g emulate-scroll-for-no-mouse-alternate-buffer on
+# ──────────────────────────────────────────────────────────── Plugins (run) ──┤
+<% if has_feature? :tpm %>
+run '<%= local! :tpm_dir %>/tpm'
+<% end %>
 # └────────────────────────────────────────────────────────────────────────────┘
+
 
 # vim: set filetype=eruby.tmux :

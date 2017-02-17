@@ -1,3 +1,10 @@
+commands:
+
+  - type: sync
+    repo: 'https:tmux-plugins/tpm'
+    dst:  '<%= get_var! :"tpm.dir" %>'
+    only: f?tmux && f?tpm
+
 elems:
 
   - src:   ^(tmux.conf)$
