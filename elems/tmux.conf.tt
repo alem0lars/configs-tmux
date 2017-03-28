@@ -108,7 +108,7 @@ bind b send-prefix
 # <Prefix><S-r>: force a reload of the config file.
 bind r source ~/.tmux.conf\; display "Tmux config reloaded."
 # ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
-bind -n C-k clear-history
+bind C-i clear-history
 # ─────────────────────────────────────────────────── Hotkeys (copy & paste) ──┤
 # [Normal mode]y or <Enter>: Copy the selected text.
 bind -t vi-copy y     copy-pipe $TMUX_COPY_CMD
