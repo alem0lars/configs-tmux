@@ -32,8 +32,7 @@
 # ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
   variable :"tpm.dir", as: :tpm_dir
-  variable :"tmux.copy_cmd", type: :string?, default: nil, as: :copy_cmd
-end -%>
+end %>
 # ─────────────────────────────────────────────────────────────────────────────┘
 
 
@@ -42,15 +41,16 @@ end -%>
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'NHDaly/tmux-better-mouse-mode'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-open'
+set -g @plugin 'tmux-plugins/tmux-logging'
+set -g @plugin 'tmux-plugins/tmux-sessionist'
 <% end %>
 # ──────────────────────────────────────────────────────────────── Variables ──┤
 TMUX_VERSION_MAJOR="`tmux -V | cut -d '.' -f 1 | sed 's|[^0-9]||g'`"
 TMUX_VERSION_MINOR="`tmux -V | cut -d '.' -f 2 | sed 's|[^0-9]||g'`"
 TMUX_VERSION=${TMUX_VERSION_MAJOR}${TMUX_VERSION_MINOR}
-
-<% if local? :copy_cmd %>
-TMUX_COPY_CMD="<%= local! :copy_cmd %>"
-<% end -%>
 # ────────────────────────────────────────────────────────────────── Windows ──┤
 # Start indexes from 1 instead of 0, for typing accessibility.
 set -g base-index      1
@@ -58,10 +58,6 @@ set -g pane-base-index 1
 
 # Automatic window numbers reordering.
 if-shell "[[ $TMUX_VERSION -ge 17 ]]" 'set-option -g renumber-windows on'
-
-# <Prefix><C-s>: Sort windows.
-bind-key C-s run \
-  "for i in $(tmux lsw|awk -F: '{print $1}'); do tmux movew -s \$i' done"
 
 # Directly expose pane titles.
 set -g set-titles on
@@ -84,8 +80,7 @@ set -g escape-time 16
 # the specified time milliseconds.
 set -g repeat-time 128
 # ──────────────────────────────────────────────────────────────────── Mouse ──┤
-set -g mouse-utf8 on
-
+if-shell "[[ $TMUX_VERSION -lt 22 ]]" 'set -g mouse-utf8 on'
 if-shell "[[ $TMUX_VERSION -ge 21 ]]" 'set -g mouse on'
 if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-resize-pane on'
 if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-select-pane on'
@@ -94,10 +89,10 @@ if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mode-mouse on'
 # ──────────────────────────────────────────────────────── Hotkeys (general) ──┤
 # Generate xterm-style function key sequences; these have a number included to
 # indicate modifiers such as Shift, Alt or Ctrl. The default is off.
-setw -g xterm-keys  on
+setw -g xterm-keys on
 
 # Enable vi-mode.
-set -wg mode-keys   vi
+set -wg mode-keys vi
 # ───────────────────────────────────────────────────────── Hotkeys (prefix) ──┤
 # Change prefix from <C-b> to <C-a>.
 set -g prefix C-a
@@ -109,10 +104,6 @@ bind b send-prefix
 bind r source ~/.tmux.conf\; display "Tmux config reloaded."
 # ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
 bind C-i clear-history
-# ─────────────────────────────────────────────────── Hotkeys (copy & paste) ──┤
-# [Normal mode]y or <Enter>: Copy the selected text.
-bind -t vi-copy y     copy-pipe $TMUX_COPY_CMD
-bind -t vi-copy enter copy-pipe $TMUX_COPY_CMD
 # ───────────────────────────────────────────────────────── Hotkeys (layout) ──┤
 # <Prefix><Space>: next layout.
 bind 'space' next-layout
@@ -137,16 +128,8 @@ bind M-w confirm kill-window
 # <Prefix><Alt>W: Kill the window (without asking confirmation).
 bind M-W kill-window
 # ─────────────────────────────────────────────────────── Hotkeys (sessions) ──┤
-# <Prefix>C: Create a new session.
-bind C command-prompt -p "new session:" "new-session -A -s %%"
-
 # <Prefix>d: detach from the current session.
 bind d detach
-
-# <Prefix><Alt>s: Kill the session (asking confirmation).
-bind M-s confirm kill-session
-# <Prefix><Alt>S: Kill the session (without asking confirmation).
-bind M-S kill-session
 # ────────────────────────────────────────────────────────── Hotkeys (panes) ──┤
 bind J swap-pane -D
 bind K swap-pane -U
@@ -222,11 +205,15 @@ set -g status-right '#[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]#
 setw -g window-status-format '#[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]#[default] #I:#W #[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]'
 setw -g window-status-current-format '#[fg=colour233,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour145,bg=colour236] #I:#W #[fg=colour236,bg=colour233,nobold,nounderscore,noitalics]'
 # ───────────────────────────────────────── Tmux Better Mouse Mode ← Plugins ──┤
-# TODO check if working
-set -g scroll-down-exit-copy-mode off
-set -g scroll-without-changing-pane on
-set -g scroll-in-moused-over-pane on
-set -g emulate-scroll-for-no-mouse-alternate-buffer on
+<% if has_feature? :tpm %>
+# Settings for `NHDaly/tmux-better-mouse-mode`
+set -g @scroll-down-exit-copy-mode off
+set -g @scroll-without-changing-pane on
+set -g @scroll-in-moused-over-pane on
+set -g @emulate-scroll-for-no-mouse-alternate-buffer on
+# Settings for `tmux-plugins/tmux-yank`
+set -g @shell_mode 'vi'
+<% end %>
 # ──────────────────────────────────────────────────────────── Plugins (run) ──┤
 <% if has_feature? :tpm %>
 run '<%= local! :tpm_dir %>/tpm'
