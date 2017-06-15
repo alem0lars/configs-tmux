@@ -12,6 +12,10 @@ elems:
     only:  f?tmux
     notes: Program xclip is needed for clipboard support
 
+  - src:  ^(tmuxp/.+)$
+    dst:  ~/.<1>
+    only: f?tmux && f?tmuxp
+
   - src:  ^(tmuxinator/.+)$
     dst:  ~/.<1>
     only: f?tmux && f?tmuxinator
