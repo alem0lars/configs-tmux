@@ -144,9 +144,6 @@ if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
 # <Prefix> w: Kill the window (asking confirmation).
 bind w confirm kill-window
 
-# <Prefix> W: Kill the window (without asking confirmation).
-bind W kill-window
-
 # ─────────────────────────────────────────────────────── Hotkeys (sessions) ──┤
 
 # <Prefix> d: Detach from the current session.
