@@ -118,6 +118,12 @@ set -g prefix C-a
 # <C-b>: Nested prefix.
 bind -n C-b send-prefix
 
+# ─────────────────────────────────────────────────────────── Hotkeys (copy) ──┤
+
+bind-key -t vi-copy 'v' begin-selection
+bind-key -t vi-copy 'y' copy-selection
+bind-key -t vi-copy 'r' rectangle-toggle
+
 # ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
 
 # <Prefix> <Control>i: next layout.
