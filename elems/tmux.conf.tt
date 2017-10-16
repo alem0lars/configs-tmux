@@ -58,6 +58,10 @@ TMUX_VERSION_MAJOR="`tmux -V | cut -d '.' -f 1 | sed 's|[^0-9]||g'`"
 TMUX_VERSION_MINOR="`tmux -V | cut -d '.' -f 2 | sed 's|[^0-9]||g'`"
 TMUX_VERSION=${TMUX_VERSION_MAJOR}${TMUX_VERSION_MINOR}
 
+# ───────────────────────────────────────────────────────────────────── Misc ──┤
+
+set -g default-terminal "st-256color"
+
 # ────────────────────────────────────────────────────────────────── Windows ──┤
 
 # Start indexes from 1 instead of 0, for typing accessibility.
