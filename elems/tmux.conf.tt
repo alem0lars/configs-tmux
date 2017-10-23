@@ -130,12 +130,12 @@ bind-key -t vi-copy 'r' rectangle-toggle
 
 # ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
 
-# <Prefix> <Control>i: next layout.
+# <Prefix> <Control>i: Clear buffer history.
 bind C-i clear-history
 
 # ───────────────────────────────────────────────────────── Hotkeys (layout) ──┤
 
-# <Prefix> <Space>: next layout.
+# <Prefix> <Space>: Switch to next layout.
 bind 'space' next-layout
 
 # ──────────────────────────────────────────────────────── Hotkeys (windows) ──┤
@@ -158,6 +158,9 @@ bind w confirm kill-window
 
 # <Prefix> d: Detach from the current session.
 bind d detach
+
+# <Prefix> X: Kill current session.
+bind X confirm -p "Kill session '#S' (y/n)?" "run-shell 'tmux switch-client -n \\\; kill-session -t \"$(tmux display -p \"#S\")\"'"
 
 # ────────────────────────────────────────────────────────── Hotkeys (panes) ──┤
 
