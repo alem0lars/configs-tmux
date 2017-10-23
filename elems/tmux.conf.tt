@@ -159,9 +159,6 @@ bind w confirm kill-window
 # <Prefix> d: Detach from the current session.
 bind d detach
 
-# <Prefix> X: Kill current session.
-bind X confirm -p "Kill session '#S' (y/n)?" "run-shell 'tmux switch-client -n \\\; kill-session -t \"$(tmux display -p \"#S\")\"'"
-
 # ────────────────────────────────────────────────────────── Hotkeys (panes) ──┤
 
 bind J swap-pane -D
