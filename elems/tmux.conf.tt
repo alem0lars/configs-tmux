@@ -83,8 +83,12 @@ setw -g monitor-activity on
 set  -g visual-activity  on
 
 # Urgency hints.
-set -g bell-action   any
-set -g bell-on-alert on
+set -g activity-action any
+set -g visual-bell both
+
+# Monitor for a bell in the window.
+# Windows with a bell are highlighted in the status line.
+set -g monitor-bell on
 
 # ───────────────────────────────────────────────────────────────── Keyboard ──┤
 
@@ -98,12 +102,7 @@ set -g repeat-time 128
 
 # ──────────────────────────────────────────────────────────────────── Mouse ──┤
 
-if-shell "[[ $TMUX_VERSION -lt 22 ]]" 'set -g mouse-utf8 on'
-if-shell "[[ $TMUX_VERSION -ge 21 ]]" 'set -g mouse on'
-if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-resize-pane on'
-if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-select-pane on'
-if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mouse-window-pane on'
-if-shell "[[ $TMUX_VERSION -lt 21 ]]" 'set -g mode-mouse on'
+set -g mouse on
 
 # ──────────────────────────────────────────────────────── Hotkeys (general) ──┤
 
@@ -124,9 +123,9 @@ bind -n C-b send-prefix
 
 # ─────────────────────────────────────────────────────────── Hotkeys (copy) ──┤
 
-bind-key -t vi-copy 'v' begin-selection
-bind-key -t vi-copy 'y' copy-selection
-bind-key -t vi-copy 'r' rectangle-toggle
+bind -T copy-mode-vi 'v' send-keys -X begin-selection
+bind -T copy-mode-vi 'y' send-keys -X copy-selection
+bind -T copy-mode-vi 'r' send-keys -X rectangle-toggle
 
 # ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
 
@@ -141,15 +140,11 @@ bind 'space' next-layout
 # ──────────────────────────────────────────────────────── Hotkeys (windows) ──┤
 
 # <Prefix> c: Create a new window.
-if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
-  'bind c new-window -c "#{pane_current_path}"' \
-  'bind c new-window'
+bind c new-window -c "#{pane_current_path}"
 
 # <Prefix> W: Choose a window from the all of the windows (also in other
 #             sessions).
-if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
-  'bind W choose-tree' \
-  'bind W choose-session'
+bind W choose-tree
 
 # <Prefix> w: Kill the window (asking confirmation).
 bind w confirm kill-window
@@ -172,24 +167,16 @@ bind C-h resize-pane -L 6
 bind C-l resize-pane -R 6
 
 # <Prefix> s: Split window horizontally creating a new lower pane.
-if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
-  'bind s split-window -v -p 33 -c "#{pane_current_path}"' \
-  'bind s split-window -v -p 33'
+bind s split-window -v -p 33 -c "#{pane_current_path}"
 
 # <Prefix> S: Split window horizontally creating a new upper pane.
-if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
-  'bind S split-window -v -p 33 -c "#{pane_current_path}"\; swap-pane -U' \
-  'bind S split-window -v -p 33\; swap-pane -U'
+bind S split-window -v -p 33 -c "#{pane_current_path}"\; swap-pane -U
 
 # <Prefix> v: Split window vertically creating a new right pane.
-if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
-  'bind v split-window -h -p 33 -c "#{pane_current_path}"' \
-  'bind v split-window -h -p 33'
+bind v split-window -h -p 33 -c "#{pane_current_path}"
 
 # <Prefix> V: Split window vertically creating a new left pane.
-if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
-  'bind V split-window -h -p 33 -c "#{pane_current_path}"\; swap-pane -U' \
-  'bind V split-window -h -p 33\; swap-pane -U'
+bind V split-window -h -p 33 -c "#{pane_current_path}"\; swap-pane -U
 
 # <Prefix> h, <Prefix> j, <Prefix> k, <Prefix> l: pane traversal.
 bind h select-pane -L
@@ -224,8 +211,7 @@ setw -g window-status-attr 'none'
 setw -g window-status-activity-bg 'colour233'
 setw -g window-status-activity-attr 'none'
 setw -g window-status-activity-fg 'colour25'
-if-shell "[[ $TMUX_VERSION_MINOR -ge 7 ]]" \
-  'setw -g window-status-separator ""'
+setw -g window-status-separator ""
 setw -g window-status-bg 'colour233'
 
 set -g pane-border-fg 'colour236'
