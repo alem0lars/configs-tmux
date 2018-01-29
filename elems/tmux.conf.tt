@@ -83,12 +83,8 @@ setw -g monitor-activity on
 set  -g visual-activity  on
 
 # Urgency hints.
-set -g activity-action any
-set -g visual-bell both
-
-# Monitor for a bell in the window.
-# Windows with a bell are highlighted in the status line.
-set -g monitor-bell on
+#set -g activity-action any
+#set -g visual-bell both
 
 # ───────────────────────────────────────────────────────────────── Keyboard ──┤
 
