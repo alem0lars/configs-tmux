@@ -1,0 +1,10 @@
+- session: sysmon
+
+- name: one
+  windowgram: |
+    12
+    34
+  directions: |
+    dir /tmp
+    foc
+    1 run slurm

@@ -1,0 +1,27 @@
+- session: rezone-backend
+
+- name: edit
+  windowgram: |
+    1
+  directions: |
+    dir /data/projects/work/entrophi/rezone-backend
+    foc
+    1 run vim -c vsplit
+
+- name: build
+  windowgram: |
+    112
+    112
+    113
+  directions: |
+    dir /data/projects/work/entrophi/rezone-backend
+    1 run npm run test
+    2 run npm run watch:log
+    3 run npm run watch:build
+
+- name: browse
+  windowgram: |
+    1
+  directions: |
+    dir /data/projects/work/entrophi/rezone-backend
+    1 run ranger

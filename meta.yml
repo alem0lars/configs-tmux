@@ -20,5 +20,9 @@ elems:
     dst:  ~/.<1>
     only: f?tmux && f?tmuxinator
 
+  - src:  ^(tmuxomatic/.+)$
+    dst:  ~/.<1>
+    only: f?tmux && f?tmuxomatic
+
 
 # vim: set filetype=eruby.yaml :
