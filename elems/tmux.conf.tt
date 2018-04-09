@@ -130,7 +130,7 @@ bind -T copy-mode-vi 'r' send-keys -X rectangle-toggle
 # ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
 
 # <Prefix> <Control>i: Clear scroll-back and buffer history.
-bind C-i send-keys C-l \; run 'sleep 0.2' \; clear-history
+bind -n C-i send-keys C-l \; run 'sleep 0.2' \; clear-history
 
 # ───────────────────────────────────────────────────────── Hotkeys (layout) ──┤
 
