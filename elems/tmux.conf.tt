@@ -73,6 +73,7 @@ if-shell "[[ $TMUX_VERSION -ge 17 ]]" 'set-option -g renumber-windows on'
 
 # Directly expose pane titles.
 set -g set-titles on
+set -g set-titles-string '#h ● #S → #I: #W'
 
 # ───────────────────────────────────────────────────────────────── Activity ──┤
 
@@ -100,6 +101,9 @@ set -g repeat-time 128
 
 set -g mouse on
 
+unbind -T copy-mode MouseDragEnd1Pane
+unbind -T copy-mode-vi MouseDragEnd1Pane
+
 # ──────────────────────────────────────────────────────── Hotkeys (general) ──┤
 
 # Generate xterm-style function key sequences; these have a number included to
@@ -125,8 +129,8 @@ bind -T copy-mode-vi 'r' send-keys -X rectangle-toggle
 
 # ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
 
-# <Prefix> <Control>i: Clear buffer history.
-bind C-i clear-history
+# <Prefix> <Control>i: Clear scroll-back and buffer history.
+bind C-i send-keys C-l \; run 'sleep 0.2' \; clear-history
 
 # ───────────────────────────────────────────────────────── Hotkeys (layout) ──┤
 
