@@ -69,7 +69,7 @@ set -g base-index      1
 set -g pane-base-index 1
 
 # Automatic window numbers reordering.
-if-shell "[[ $TMUX_VERSION -ge 17 ]]" 'set-option -g renumber-windows on'
+set-option -g renumber-windows on
 
 # Directly expose pane titles.
 set -g set-titles on
@@ -82,10 +82,6 @@ setw -g monitor-activity on
 
 # Windows with activity are highlighted in the status line.
 set  -g visual-activity  on
-
-# Urgency hints.
-#set -g activity-action any
-#set -g visual-bell both
 
 # ───────────────────────────────────────────────────────────────── Keyboard ──┤
 
@@ -129,8 +125,8 @@ bind -T copy-mode-vi 'r' send-keys -X rectangle-toggle
 
 # ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
 
-# <Prefix> <Control>i: Clear scroll-back and buffer history.
-bind -n C-i send-keys C-l \; run 'sleep 0.2' \; clear-history
+# <Prefix> <Control>l: Clear scroll-back and buffer history.
+bind -n C-l send-keys C-l \; run 'sleep 0.2' \; clear-history
 
 # ───────────────────────────────────────────────────────── Hotkeys (layout) ──┤
 
