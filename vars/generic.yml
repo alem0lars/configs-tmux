@@ -1,2 +1,49 @@
 features:
   - tmux
+
+tmux:
+  keys:
+    clear_scrollback: 'C-l'
+
+    # Layouts.
+    layout:
+      next: "'space'"
+
+    # Windows.
+    window:
+      new:    'c'
+      choose: 'W'
+      kill:   'w'
+
+    # Sessions.
+    session:
+      detach: 'd'
+
+    # Panes.
+    pane:
+      swap:
+        up:    'K'
+        down:  'J'
+        left:  'H'
+        right: 'L'
+      resize:
+        up:    'C-k'
+        down:  'C-j'
+        left:  'C-h'
+        right: 'C-l'
+      split:
+        horizontal:
+          upper: 'S'
+          lower: 's'
+        vertical:
+          left:  'V'
+          right: 'v'
+      go:
+        up:    'k'
+        down:  'j'
+        left:  'h'
+        right: 'l'
+
+    # Status.
+    status_toggle: '`'
+

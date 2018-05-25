@@ -5,6 +5,8 @@
 # - Summary: The TMux configuration.                                           │
 # - Authors:                                                                   │
 #   - Alessandro Molari <molari.alessandro@gmail.com> (alem0lars)              │
+# - Contributors:                                                              │
+#   - Luca Molari <molari.luca@gmail.com> (LMolr)                              │
 #                                                                              │
 # Project informations:                                                        │
 #   - Homepage:        https://github.com/alem0lars/configs-tmux               │
@@ -32,6 +34,38 @@
 # ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
   variable :"tpm.dir", as: :tpm_dir
+  variable :'tmux.keys', as: :keys
+  variable :'tmux.keys.clear_scrollback', as: :key_clear_scrollback
+
+  variable :'tmux.keys.layout.next', as: :key_layout_next
+
+  variable :'tmux.keys.window.new',    as: :key_window_new
+  variable :'tmux.keys.window.choose', as: :key_window_choose
+  variable :'tmux.keys.window.kill',   as: :key_window_kill
+
+  variable :'tmux.keys.session.detach', as: :key_session_detach
+
+  variable :'tmux.keys.pane.swap.up',    as: :key_pane_swap_up
+  variable :'tmux.keys.pane.swap.down',  as: :key_pane_swap_down
+  variable :'tmux.keys.pane.swap.left',  as: :key_pane_swap_left
+  variable :'tmux.keys.pane.swap.right', as: :key_pane_swap_right
+
+  variable :'tmux.keys.pane.resize.up',    as: :key_pane_resize_up
+  variable :'tmux.keys.pane.resize.down',  as: :key_pane_resize_down
+  variable :'tmux.keys.pane.resize.left',  as: :key_pane_resize_left
+  variable :'tmux.keys.pane.resize.right', as: :key_pane_resize_right
+
+  variable :'tmux.keys.pane.split.horizontal.upper', as: :key_pane_split_horizontal_upper
+  variable :'tmux.keys.pane.split.horizontal.lower', as: :key_pane_split_horizontal_lower
+  variable :'tmux.keys.pane.split.vertical.left',    as: :key_pane_split_vertical_left
+  variable :'tmux.keys.pane.split.vertical.right',   as: :key_pane_split_vertical_right
+
+  variable :'tmux.keys.pane.go.up',    as: :key_pane_go_up
+  variable :'tmux.keys.pane.go.down',  as: :key_pane_go_down
+  variable :'tmux.keys.pane.go.left',  as: :key_pane_go_left
+  variable :'tmux.keys.pane.go.right', as: :key_pane_go_right
+
+  variable :'tmux.keys.status_toggle', as: :key_status_toggle
 end %>
 # ─────────────────────────────────────────────────────────────────────────────┘
 
@@ -125,60 +159,59 @@ bind -T copy-mode-vi 'r' send-keys -X rectangle-toggle
 
 # ──────────────────────────────────────────────────────── Hotkeys (history) ──┤
 
-# <Prefix> <Control>l: Clear scroll-back and buffer history.
-bind -n C-l send-keys C-l \; run 'sleep 0.2' \; clear-history
+# Clear scroll-back and buffer history.
+bind -n <%= local! :key_clear_scrollback %> send-keys <%= local! :key_clear_scrollback %> \; run 'sleep 0.2' \; clear-history
 
 # ───────────────────────────────────────────────────────── Hotkeys (layout) ──┤
 
-# <Prefix> <Space>: Switch to next layout.
-bind 'space' next-layout
+# Switch to next layout.
+bind <%= local! :key_layout_next %> next-layout
 
 # ──────────────────────────────────────────────────────── Hotkeys (windows) ──┤
 
-# <Prefix> c: Create a new window.
-bind c new-window -c "#{pane_current_path}"
+# Create a new window.
+bind <%= local! :key_window_new %> new-window -c "#{pane_current_path}"
 
-# <Prefix> W: Choose a window from the all of the windows (also in other
-#             sessions).
-bind W choose-tree
+# Choose a window from the all of the windows (also in other sessions).
+bind <%= local! :key_window_choose %> choose-tree
 
-# <Prefix> w: Kill the window (asking confirmation).
-bind w confirm kill-window
+# Kill the window (asking confirmation).
+bind <%= local! :key_window_kill %> confirm kill-window
 
 # ─────────────────────────────────────────────────────── Hotkeys (sessions) ──┤
 
-# <Prefix> d: Detach from the current session.
-bind d detach
+# Detach from the current session.
+bind <%= local! :key_session_detach %> detach
 
 # ────────────────────────────────────────────────────────── Hotkeys (panes) ──┤
 
-bind J swap-pane -D
-bind K swap-pane -U
-bind H swap-pane -U
-bind L swap-pane -D
+bind <%= local! :key_pane_swap_up %> swap-pane -U
+bind <%= local! :key_pane_swap_down %> swap-pane -D
+bind <%= local! :key_pane_swap_left %> swap-pane -L
+bind <%= local! :key_pane_swap_right %> swap-pane -R
 
-bind C-j resize-pane -D 4
-bind C-k resize-pane -U 4
-bind C-h resize-pane -L 6
-bind C-l resize-pane -R 6
+bind <%= local! :key_pane_resize_up %> resize-pane -U 4
+bind <%= local! :key_pane_resize_down %> resize-pane -D 4
+bind <%= local! :key_pane_resize_left %> resize-pane -L 6
+bind <%= local! :key_pane_resize_right %> resize-pane -R 6
 
-# <Prefix> s: Split window horizontally creating a new lower pane.
-bind s split-window -v -p 33 -c "#{pane_current_path}"
+# Split window horizontally creating a new lower pane.
+bind <%= local! :key_pane_split_horizontal_lower %> split-window -v -p 33 -c "#{pane_current_path}"
 
-# <Prefix> S: Split window horizontally creating a new upper pane.
-bind S split-window -v -p 33 -c "#{pane_current_path}"\; swap-pane -U
+# Split window horizontally creating a new upper pane.
+bind <%= local! :key_pane_split_horizontal_upper %> split-window -v -p 33 -c "#{pane_current_path}"\; swap-pane -U
 
-# <Prefix> v: Split window vertically creating a new right pane.
-bind v split-window -h -p 33 -c "#{pane_current_path}"
+# Split window vertically creating a new right pane.
+bind <%= local! :key_pane_split_vertical_right %> split-window -h -p 33 -c "#{pane_current_path}"
 
-# <Prefix> V: Split window vertically creating a new left pane.
-bind V split-window -h -p 33 -c "#{pane_current_path}"\; swap-pane -U
+# Split window vertically creating a new left pane.
+bind <%= local! :key_pane_split_vertical_left %> split-window -h -p 33 -c "#{pane_current_path}"\; swap-pane -U
 
-# <Prefix> h, <Prefix> j, <Prefix> k, <Prefix> l: pane traversal.
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+# Pane traversal.
+bind <%= local! :key_pane_go_up %> select-pane -U
+bind <%= local! :key_pane_go_down %> select-pane -D
+bind <%= local! :key_pane_go_left %> select-pane -L
+bind <%= local! :key_pane_go_right %> select-pane -R
 
 # <Prefix> <Up>, <Prefix> <Down>, <Prefix> <Left>, <Prefix> <Right>:
 #   Fallback for weird situations.
@@ -189,8 +222,8 @@ bind Right select-pane -R
 
 # ───────────────────────────────────────────────────────── Hotkeys (status) ──┤
 
-# <Prefix> `: Toggle status bar.
-bind ` set -g status
+# Toggle status bar.
+bind <%= local! :key_status_toggle %> set -g status
 
 # ─────────────────────────────────────────────────────────────────── Colors ──┤
 
