@@ -1,6 +1,6 @@
 tmux:
   keys:
-    clear_scrollback: 'C-k'
+    clear_scrollback: 'C-l'
 
     # Layouts.
     layout:
