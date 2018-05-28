@@ -35,10 +35,10 @@ tmux:
       split:
         horizontal:
           upper: 'S'
-          lower: 's'
+          lower: '-'
         vertical:
           left:  'V'
-          right: 'v'
+          right: '/'
       go:
         up:    'k'
         down:  'j'
