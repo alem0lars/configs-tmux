@@ -1,4 +1,4 @@
-# => inherits: generic, with-tmuxomatic, with-xclip, with-tpm <= #
+# => inherits: generic, with-tmuxomatic, with-xclip, with-tpm, with-lmolr-keys <= #
 
 
 # vim: set filetype=eruby.yaml :
