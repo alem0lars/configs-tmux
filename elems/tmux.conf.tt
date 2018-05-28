@@ -43,6 +43,9 @@
   variable :'tmux.keys.window.choose', as: :key_window_choose
   variable :'tmux.keys.window.kill',   as: :key_window_kill
 
+  variable :'tmux.keys.session.new', as: :key_session_new
+  variable :'tmux.keys.session.go.next', as: :key_session_go_next
+  variable :'tmux.keys.session.go.prev', as: :key_session_go_prev
   variable :'tmux.keys.session.detach', as: :key_session_detach
 
   variable :'tmux.keys.pane.swap.up',    as: :key_pane_swap_up
@@ -180,6 +183,12 @@ bind <%= local! :key_window_kill %> confirm kill-window
 
 # ─────────────────────────────────────────────────────── Hotkeys (sessions) ──┤
 
+# Start a new session.
+bind <%= local! :key_session_new %> new-session
+# Switch to the next session.
+bind <%= local! :key_session_go_next %> switch-client -n \; refresh-client -S
+# Switch to the previous session.
+bind <%= local! :key_session_go_prev %> switch-client -p \; refresh-client -S
 # Detach from the current session.
 bind <%= local! :key_session_detach %> detach
 

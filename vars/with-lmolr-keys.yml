@@ -14,7 +14,11 @@ tmux:
 
     # Sessions.
     session:
+      new: 'C-s'
       detach: 'd'
+      go:
+        next: 'C-p'
+        prev: 'C-n'
 
     # Panes.
     pane:
