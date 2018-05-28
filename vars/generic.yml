@@ -19,6 +19,7 @@ tmux:
     session:
       new: 'C-s'
       detach: 'd'
+      rename: '.'
       go:
         next: 'C-p'
         prev: 'C-n'

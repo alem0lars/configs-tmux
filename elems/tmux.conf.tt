@@ -44,9 +44,10 @@
   variable :'tmux.keys.window.kill',   as: :key_window_kill
 
   variable :'tmux.keys.session.new', as: :key_session_new
+  variable :'tmux.keys.session.detach', as: :key_session_detach
+  variable :'tmux.keys.session.rename', as: :key_session_rename
   variable :'tmux.keys.session.go.next', as: :key_session_go_next
   variable :'tmux.keys.session.go.prev', as: :key_session_go_prev
-  variable :'tmux.keys.session.detach', as: :key_session_detach
 
   variable :'tmux.keys.pane.swap.up',    as: :key_pane_swap_up
   variable :'tmux.keys.pane.swap.down',  as: :key_pane_swap_down
@@ -191,6 +192,8 @@ bind <%= local! :key_session_go_next %> switch-client -n \; refresh-client -S
 bind <%= local! :key_session_go_prev %> switch-client -p \; refresh-client -S
 # Detach from the current session.
 bind <%= local! :key_session_detach %> detach
+# Rename the current session.
+bind <%= local! :key_session_rename %> command-prompt -I "#S" "rename-session '%%'"
 
 # ────────────────────────────────────────────────────────── Hotkeys (panes) ──┤
 
