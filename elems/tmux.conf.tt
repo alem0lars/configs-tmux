@@ -187,8 +187,8 @@ bind <%= local! :key_session_detach %> detach
 
 bind <%= local! :key_pane_swap_up %> swap-pane -U
 bind <%= local! :key_pane_swap_down %> swap-pane -D
-bind <%= local! :key_pane_swap_left %> swap-pane -L
-bind <%= local! :key_pane_swap_right %> swap-pane -R
+bind <%= local! :key_pane_swap_left %> swap-pane -U
+bind <%= local! :key_pane_swap_right %> swap-pane -D
 
 bind <%= local! :key_pane_resize_up %> resize-pane -U 4
 bind <%= local! :key_pane_resize_down %> resize-pane -D 4
