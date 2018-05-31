@@ -33,42 +33,35 @@
 #                                                                              │
 # ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
-  variable :"tpm.dir", as: :tpm_dir
+  variable :'tpm.dir', as: :tpm_dir
+  variable :'tmux.default_terminal', as: 'default_terminal'
   variable :'tmux.keys', as: :keys
   variable :'tmux.keys.clear_scrollback', as: :key_clear_scrollback
-
   variable :'tmux.keys.layout.next', as: :key_layout_next
-
   variable :'tmux.keys.window.new',    as: :key_window_new
   variable :'tmux.keys.window.choose', as: :key_window_choose
   variable :'tmux.keys.window.kill',   as: :key_window_kill
-
   variable :'tmux.keys.session.new', as: :key_session_new
   variable :'tmux.keys.session.detach', as: :key_session_detach
   variable :'tmux.keys.session.rename', as: :key_session_rename
   variable :'tmux.keys.session.go.next', as: :key_session_go_next
   variable :'tmux.keys.session.go.prev', as: :key_session_go_prev
-
   variable :'tmux.keys.pane.swap.up',    as: :key_pane_swap_up
   variable :'tmux.keys.pane.swap.down',  as: :key_pane_swap_down
   variable :'tmux.keys.pane.swap.left',  as: :key_pane_swap_left
   variable :'tmux.keys.pane.swap.right', as: :key_pane_swap_right
-
   variable :'tmux.keys.pane.resize.up',    as: :key_pane_resize_up
   variable :'tmux.keys.pane.resize.down',  as: :key_pane_resize_down
   variable :'tmux.keys.pane.resize.left',  as: :key_pane_resize_left
   variable :'tmux.keys.pane.resize.right', as: :key_pane_resize_right
-
   variable :'tmux.keys.pane.split.horizontal.upper', as: :key_pane_split_horizontal_upper
   variable :'tmux.keys.pane.split.horizontal.lower', as: :key_pane_split_horizontal_lower
   variable :'tmux.keys.pane.split.vertical.left',    as: :key_pane_split_vertical_left
   variable :'tmux.keys.pane.split.vertical.right',   as: :key_pane_split_vertical_right
-
   variable :'tmux.keys.pane.go.up',    as: :key_pane_go_up
   variable :'tmux.keys.pane.go.down',  as: :key_pane_go_down
   variable :'tmux.keys.pane.go.left',  as: :key_pane_go_left
   variable :'tmux.keys.pane.go.right', as: :key_pane_go_right
-
   variable :'tmux.keys.status_toggle', as: :key_status_toggle
 end %>
 # ─────────────────────────────────────────────────────────────────────────────┘
@@ -98,7 +91,7 @@ TMUX_VERSION=${TMUX_VERSION_MAJOR}${TMUX_VERSION_MINOR}
 
 # ───────────────────────────────────────────────────────────────────── Misc ──┤
 
-set -g default-terminal "st-256color"
+set -g default-terminal "<%= local! :default_terminal %>"
 
 # ────────────────────────────────────────────────────────────────── Windows ──┤
 
