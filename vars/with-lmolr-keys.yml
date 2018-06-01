@@ -2,9 +2,13 @@ tmux:
   keys:
     clear_scrollback: 'C-l'
 
+    # Copycat.
+    copycat:
+      search: 'C-/'
+
     # Layouts.
     layout:
-      next: "'space'"
+      next: 'Space'
 
     # Windows.
     window:
@@ -14,7 +18,7 @@ tmux:
 
     # Sessions.
     session:
-      new: 'C-s'
+      new:    'C-s'
       detach: 'd'
       go:
         next: 'C-p'
@@ -22,6 +26,7 @@ tmux:
 
     # Panes.
     pane:
+      maximize_toggle: 'C-Space'
       swap:
         up:    'K'
         down:  'J'
