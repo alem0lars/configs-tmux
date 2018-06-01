@@ -87,6 +87,8 @@ set -g @plugin 'tmux-plugins/tmux-open'
 set -g @plugin 'tmux-plugins/tmux-urlview'
 set -g @plugin 'tmux-plugins/tmux-logging'
 set -g @plugin 'tmux-plugins/tmux-sessionist'
+set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
 
 <% end %>
 
@@ -99,6 +101,10 @@ TMUX_VERSION=${TMUX_VERSION_MAJOR}${TMUX_VERSION_MINOR}
 # ───────────────────────────────────────────────────────────────────── Misc ──┤
 
 set -g default-terminal "st-256color"
+
+# ───────────────────────────────────────────────────────────────────── Copy ──┤
+
+set-option -s set-clipboard on
 
 # ────────────────────────────────────────────────────────────────── Windows ──┤
 
@@ -184,8 +190,6 @@ bind <%= local! :key_window_kill %> confirm kill-window
 
 # ─────────────────────────────────────────────────────── Hotkeys (sessions) ──┤
 
-# Start a new session.
-bind <%= local! :key_session_new %> new-session
 # Switch to the next session.
 bind <%= local! :key_session_go_next %> switch-client -n \; refresh-client -S
 # Switch to the previous session.
@@ -240,39 +244,39 @@ bind <%= local! :key_status_toggle %> set -g status
 # ─────────────────────────────────────────────────────────────────── Colors ──┤
 
 set -g status-bg 'colour233'
+set -g status-attr 'none'
 set -g status-justify 'left'
 set -g status-left-length '100'
 set -g status-left-attr 'none'
 set -g status-right-length '100'
 set -g status-right-attr 'none'
-set -g status-attr 'none'
 
 setw -g window-status-fg 'colour240'
+setw -g window-status-bg 'colour233'
 setw -g window-status-attr 'none'
+setw -g window-status-activity-fg 'colour25'
 setw -g window-status-activity-bg 'colour233'
 setw -g window-status-activity-attr 'none'
-setw -g window-status-activity-fg 'colour25'
 setw -g window-status-separator ""
-setw -g window-status-bg 'colour233'
 
 set -g pane-border-fg 'colour236'
 set -g pane-active-border-fg 'colour25'
 
+set -g message-fg 'colour145'
 set -g message-bg 'colour236'
 set -g message-command-fg 'colour145'
-set -g message-fg 'colour145'
 set -g message-command-bg 'colour236'
 
 # ─────────────────────────────────────────────────────────────────── Status ──┤
 
 set -g status on
 
-set -g status-left '#[fg=colour195,bg=colour25,bold] #S #[fg=colour25,bg=colour233,nobold,nounderscore,noitalics]'
+set -g status-left '#{prefix_highlight}#[fg=colour195,bg=colour25,bold] #S #[fg=colour25,bg=colour233,nobold,nounderscore,noitalics]'
 set -g status-right '#[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]#[fg=colour240,bg=colour233] #(tmux-mem-cpu-load 2) '
 setw -g window-status-format '#[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]#[default] #I:#W #[fg=colour233,bg=colour233,nobold,nounderscore,noitalics]'
 setw -g window-status-current-format '#[fg=colour233,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour145,bg=colour236] #I:#W #[fg=colour236,bg=colour233,nobold,nounderscore,noitalics]'
 
-# ───────────────────────────────────────── Tmux Better Mouse Mode ← Plugins ──┤
+# ────────────────────────────────────────────────────────────────── Plugins ──┤
 
 <% if has_feature? :tpm %>
 
@@ -284,6 +288,21 @@ set -g @emulate-scroll-for-no-mouse-alternate-buffer on
 
 # Settings for `tmux-plugins/tmux-yank`.
 set -g @shell_mode 'vi'
+
+# Settings for `tmux-plugins/tmux-resurrect`.
+set -g @resurrect-save 'f1'
+set -g @resurrect-restore 'f2'
+
+# Settings for `tmux-plugins/tmux-prefix-highlight`.
+set -g @prefix_highlight_prefix_prompt 'PX'
+set -g @prefix_highlight_fg 'colour195'
+set -g @prefix_highlight_bg 'red'
+set -g @prefix_highlight_show_copy_mode 'on'
+set -g @prefix_highlight_copy_prompt 'CP'
+set -g @prefix_highlight_copy_mode_attr 'fg=black,bg=yellow'
+
+# Settings for `tmux-plugins/tmux-sessionist`.
+set -g @sessionist-new <%= local! :key_session_new %>
 
 <% end %>
 
