@@ -154,7 +154,8 @@ set -wg mode-keys vi
 set -g prefix 'C-a'
 
 # <C-b>: Nested prefix.
-bind -n 'C-b' send-prefix
+bind -n 'C-b' send-keys 'C-b'
+bind 'C-a' send-prefix
 
 # ─────────────────────────────────────────────────────────── Hotkeys (copy) ──┤
 
