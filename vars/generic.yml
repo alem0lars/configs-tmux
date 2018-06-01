@@ -2,6 +2,9 @@ features:
   - tmux
 
 tmux:
+
+  default_terminal: 'st-256color'
+
   keys:
     clear_scrollback: 'C-l'
 
@@ -51,4 +54,3 @@ tmux:
 
     # Status.
     status_toggle: '`'
-
