@@ -153,9 +153,11 @@ set -wg mode-keys vi
 # Change prefix from <C-b> to <C-a>.
 set -g prefix 'C-a'
 
-# <C-b>: Nested prefix.
-bind -n 'C-b' send-keys 'C-b'
+# Nested prefix.
 bind 'C-a' send-prefix
+
+# Let <C-b> pass through nested tmuxes.
+unbind-key 'C-b'
 
 # ─────────────────────────────────────────────────────────── Hotkeys (copy) ──┤
 
