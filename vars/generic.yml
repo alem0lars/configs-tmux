@@ -3,14 +3,14 @@ features:
 
 tmux:
 
-  default_terminal: 'st-256color'
+  default_terminal: 'screen-256color'
 
   keys:
     clear_scrollback: 'C-l'
 
     # Layouts.
     layout:
-      next: "'space'"
+      next: 'Space'
 
     # Windows.
     window:
@@ -20,7 +20,7 @@ tmux:
 
     # Sessions.
     session:
-      new: 'C-s'
+      new:    'C-s'
       detach: 'd'
       rename: '.'
       go:
@@ -29,6 +29,7 @@ tmux:
 
     # Panes.
     pane:
+      maximize_toggle: 'C-Space'
       swap:
         up:    'K'
         down:  'J'

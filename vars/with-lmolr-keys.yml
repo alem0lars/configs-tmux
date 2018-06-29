@@ -1,5 +1,10 @@
 tmux:
   keys:
+
+    # Copycat.
+    copycat:
+      search: 'C-/'
+
     # Windows.
     window:
       new:    'C-w'

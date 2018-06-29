@@ -1,6 +1,4 @@
-# => inherits: generic, with-tmuxomatic, with-pbcopy, with-tpm, with-lmolr-keys <= #
+# => inherits: generic, with-tpm, with-tmuxomatic, with-lmolr-keys <= #
 
-tmux:
-  default_terminal: 'xterm-256color'
 
 # vim: set filetype=eruby.yaml :
