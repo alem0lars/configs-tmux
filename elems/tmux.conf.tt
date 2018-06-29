@@ -300,10 +300,14 @@ set -g @prefix_highlight_copy_prompt    'CP'
 set -g @prefix_highlight_copy_mode_attr 'fg=black,bg=yellow'
 
 # Settings for `tmux-plugins/tmux-sessionist`.
+<% if local? :key_session_new %>
 set -g @sessionist-new '<%= local! :key_session_new %>'
+<% end %>
 
 # Settings for `tmux-plugins/tmux-copycat`.
+<% if local? :key_copycat_search %>
 set -g @copycat_search '<%= local! :key_copycat_search %>'
+<% end %>
 
 <% end %>
 
